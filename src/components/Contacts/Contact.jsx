@@ -1,16 +1,14 @@
 import PropTypes from 'prop-types';
 import { ContactBtn } from 'components/Contacts/';
 import { useDispatch } from 'react-redux';
-import { deleteContact } from 'redux/actions';
+import { deleteContact } from '../../redux/contactSlice';
 
 // import css from './Contacts.module.css';
 
 export const Contact = ({ contact }) => {
   const dispatch = useDispatch();
-
   const handleDelete = () => dispatch(deleteContact(contact.id));
 
-  console.log(contact.number);
   return (
     <>
       {`${contact.name}: ${contact.number}`}
