@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import {
@@ -9,9 +9,12 @@ import {
   ErrorMessageStyled,
   FormBtn,
 } from 'components/Contacts/';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts } from 'redux/selectors';
+import { addContact } from 'redux/actions';
 // import css from './Contacts.module.css';
 
-export const ContactForm = ({ onSubmit, onCheck }) => {
+export const ContactForm = () => {
   const initialValues = { name: '', number: '' };
   const schema = yup.object().shape({
     name: yup
@@ -30,16 +33,37 @@ export const ContactForm = ({ onSubmit, onCheck }) => {
         'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +'
       ),
   });
+  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
+
+  // const handleSubmit = (values, { resetForm }) => {
+  //   const isContactsInclude = onCheck(values.name);
+
+  //   if (isContactsInclude) {
+  //     alert(`${values.name} is alredy in contacts.`);
+  //     return;
+  //   }
+
+  //   onSubmit(values);
+  //   resetForm();
+  // };
+
+  const checkingContacts = name => {
+    return contacts.some(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
+  };
 
   const handleSubmit = (values, { resetForm }) => {
-    const isContactsInclude = onCheck(values.name);
+    const isContactsInclude = checkingContacts(values.name);
 
     if (isContactsInclude) {
       alert(`${values.name} is alredy in contacts.`);
       return;
     }
 
-    onSubmit(values);
+    dispatch(addContact(values));
+    // onSubmit(values);
     resetForm();
   };
 
@@ -67,7 +91,7 @@ export const ContactForm = ({ onSubmit, onCheck }) => {
   );
 };
 
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  onCheck: PropTypes.func.isRequired,
-};
+// ContactForm.propTypes = {
+//   onSubmit: PropTypes.func.isRequired,
+//   onCheck: PropTypes.func.isRequired,
+// };
