@@ -1,5 +1,4 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import { Formik, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import {
@@ -12,7 +11,6 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts } from 'redux/selectors';
 import { addContact } from 'redux/contactSlice';
-// import css from './Contacts.module.css';
 
 export const ContactForm = () => {
   const initialValues = { name: '', number: '' };
@@ -36,18 +34,6 @@ export const ContactForm = () => {
   const contacts = useSelector(getContacts);
   const dispatch = useDispatch();
 
-  // const handleSubmit = (values, { resetForm }) => {
-  //   const isContactsInclude = onCheck(values.name);
-
-  //   if (isContactsInclude) {
-  //     alert(`${values.name} is alredy in contacts.`);
-  //     return;
-  //   }
-
-  //   onSubmit(values);
-  //   resetForm();
-  // };
-
   const checkingContacts = name => {
     return contacts.some(
       contact => contact.name.toLowerCase() === name.toLowerCase()
@@ -63,7 +49,6 @@ export const ContactForm = () => {
     }
 
     dispatch(addContact(values));
-    // onSubmit(values);
     resetForm();
   };
 
@@ -90,8 +75,3 @@ export const ContactForm = () => {
     </Formik>
   );
 };
-
-// ContactForm.propTypes = {
-//   onSubmit: PropTypes.func.isRequired,
-//   onCheck: PropTypes.func.isRequired,
-// };

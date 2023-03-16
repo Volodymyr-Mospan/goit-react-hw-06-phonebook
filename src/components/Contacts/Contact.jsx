@@ -3,8 +3,6 @@ import { ContactBtn } from 'components/Contacts/';
 import { useDispatch } from 'react-redux';
 import { deleteContact } from '../../redux/contactSlice';
 
-// import css from './Contacts.module.css';
-
 export const Contact = ({ contact }) => {
   const dispatch = useDispatch();
   const handleDelete = () => dispatch(deleteContact(contact.id));
@@ -25,5 +23,4 @@ Contact.propTypes = {
     name: PropTypes.string.isRequired,
     number: PropTypes.string.isRequired,
   }).isRequired,
-  // onClick: PropTypes.func.isRequired,
 };
